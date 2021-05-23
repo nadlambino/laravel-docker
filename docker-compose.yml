@@ -14,11 +14,14 @@ services:
             - php
 
     mysql:
-        image: mysql:5.7.22
+        image: mariadb:10.5
+        command: "mysqld --innodb-flush-method=fsync --innodb-use-native-aio=OFF --log_bin=ON --skip-innodb-file-per-table --server-id=1 --lower_case_table_names=1"
         container_name: mysql
         tty: true
         ports: 
             - "3306:3306"
+        volumes:
+            - ./mysql:/var/lib/mysql
         environment: 
             MYSQL_ROOT_PASSWORD: localdb
 
