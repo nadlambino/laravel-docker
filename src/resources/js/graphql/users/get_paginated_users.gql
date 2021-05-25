@@ -1,0 +1,9 @@
+query getPaginatedUsers {
+    getPaginatedUsers {
+        data {
+            id
+            name
+            email
+        }
+    }
+}
