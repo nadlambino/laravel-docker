@@ -1,5 +1,5 @@
-query getPaginatedUsers {
-    getPaginatedUsers {
+query getPaginatedUsersQuery {
+    paginated_users {
         data {
             id
             name

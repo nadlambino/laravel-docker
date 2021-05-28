@@ -1,9 +1,11 @@
 require('./bootstrap');
 require('alpinejs');
 import { createApp, provide } from "vue";
+import { createStore } from "vuex";
 import { ApolloClient, InMemoryCache, gql } from "@apollo/client/core";
 import { DefaultApolloClient } from "@vue/apollo-composable";
 import TaskDashboard from "./components/tasks/TaskDashboard";
+import store from "./store/store";
 
 // Create the apollo client
 const apolloClient = new ApolloClient({
@@ -21,8 +23,11 @@ const app = createApp({
     }
 });
 
+const appStore = createStore(store);
+
 // Includes app components then mount the app
 app.components = {
     TaskDashboard
 };
+app.use(appStore);
 app.mount('#app');

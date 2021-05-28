@@ -3,9 +3,9 @@ scalar Date @scalar(class: "Nuwave\\Lighthouse\\Schema\\Types\\Scalars\\Date")
 scalar DateTime @scalar(class: "Nuwave\\Lighthouse\\Schema\\Types\\Scalars\\DateTime")
 
 type Query {
-    getPaginatedUsers: [User!]! @paginate(defaultCount: 10)
-    getUserById(id: ID @eq): User @find
-    searchUsers(
+    paginated_users: [User!]! @paginate(defaultCount: 10)
+    user(id: ID @eq): User @find
+    search_users(
         name: String @where(operator: "like"),
         email: String @where(operator: "like") 
     ): [User] @all
