@@ -5,7 +5,7 @@
         </h2>
     </x-slot>
 
-    <div class="py-12">
+    <div class="mt-4">
         <task-dashboard />
     </div>
 </x-app-layout>

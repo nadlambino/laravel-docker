@@ -1,7 +1,7 @@
 <template>
     <fragment>
         <teleport to="#alert-container" disabled>
-            <Alert :messages="messages" />
+            <Alert :messages="messages" type="error" />
         </teleport>
         <Container>
             <template #main>
@@ -20,7 +20,7 @@
                                     text-gray-700
                                     p-2"
                                 autofocus
-                                v-model="taskFormValue.title"
+                                v-model="taskFormValues.title"
                             />
                         </div>
                         <div class="container md:flex">
@@ -35,7 +35,7 @@
                                         w-full text-sm 
                                         text-gray-700
                                         p-2"
-                                    v-model="taskFormValue.date_from"
+                                    v-model="taskFormValues.date_from"
                                 />
                             </div>
                             <div class="mb-4 md:flex-1 md:ml-1">
@@ -49,7 +49,7 @@
                                         w-full text-sm 
                                         text-gray-700
                                         p-2"
-                                    v-model="taskFormValue.date_to"
+                                    v-model="taskFormValues.date_to"
                                 />
                             </div>
                         </div>
@@ -64,7 +64,7 @@
                                     w-full text-sm 
                                     text-gray-700
                                     p-2"
-                                v-model="taskFormValue.description"
+                                v-model="taskFormValues.description"
                             ></textarea>
                         </div>
                         <div class="mb-4">
@@ -89,11 +89,11 @@
 </template>
 
 <script>
-    import { ref } from "vue";
+    import { reactive, ref } from "vue";
     import { useStore } from "vuex";
     import { validator } from "./../../mixins/validator";
     import Container from "../reusables/Container";
-    import Alert from '../reusables/Alert.vue';
+    import Alert from "../reusables/Alert.vue";
 
     export default {
         name: 'TaskDashboard',
@@ -103,8 +103,8 @@
             const store = useStore();
             const { methods } = validator;
             const dateNow = store.state.date_time.now().toISODate();
-            const messages = ref([]);
-            const taskFormValue = ref({
+            const messages = ref({});
+            const taskFormValues = reactive({
                 title       : null,
                 date_from   : dateNow,
                 date_to     : dateNow,
@@ -118,14 +118,17 @@
             }
 
             function validateTask() {
-                const validate = methods.validateForm(taskFormValue, taskFormRules)
+                const validate = methods.validateForm(taskFormValues, taskFormRules)
                 if (validate.success === false) {
                     messages.value = validate.message;
+                } else {
+                    messages.value = {};
+                    
                 }
             }
             
             return {
-                taskFormValue,
+                taskFormValues,
                 validateTask,
                 messages
             }

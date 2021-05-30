@@ -18,3 +18,12 @@ type User {
     created_at: DateTime!
     updated_at: DateTime!
 }
+
+type Todo {
+    id: ID!
+    user_id: ID!
+    task: String!
+    date_from: Date
+    date_to: Date
+    description: String
+}

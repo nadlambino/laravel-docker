@@ -7,7 +7,7 @@ export const validator = {
             if (validator.passes()) {
                 return {
                     success : true,
-                    message : []
+                    message : {}
                 }
             }
             return {
